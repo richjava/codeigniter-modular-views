@@ -1,4 +1,4 @@
 <header>
     <div>My header</div>
-    <nav>My Nav</nav>
+    <nav>My nav</nav>
 </header>
