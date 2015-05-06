@@ -17,7 +17,6 @@ if (!defined('BASEPATH'))
 class Site extends CI_Controller {
 
     function index() {
-
         //*****hard-coded data
         $data['content'] = 'My content';
 
@@ -25,12 +24,13 @@ class Site extends CI_Controller {
         $this->load->library('template');
         $this->template->set_title('Home');
         $this->template->set_title_desc('Codeigniter skeleton project with modular views');
-        $this->template->add_metadata('description','A simple skeleton project built on top of Codeigniter that has modular views.');
-        $this->template->add_metadata('keywords','codeigniter, modular, views');
+        $this->template->add_meta('description', 'A simple skeleton project built on top of Codeigniter that has modular views.');
+        $this->template->add_meta('keywords', 'codeigniter, modular, views');
         $this->template->add_js('assets/themes/default/js/main.js');
         $this->template->add_js('assets/themes/default/js/main.js');
         $this->template->add_css('assets/themes/default/css/main.css');
 
         $this->template->load_view('pages/home', $data);
     }
+
 }

@@ -8,7 +8,7 @@
 class Template {
     private $_ci;
        
-    protected $brand_name = 'Modular Views';
+    protected $brand_name = 'Robios';
     protected $title_separator = ' | ';
     protected $ga_id = FALSE;
 
@@ -20,7 +20,7 @@ class Template {
     
     protected $title_desc = FALSE;
 
-    protected $metadata = array();
+    protected $meta = array();
 
     protected $js = array();
     protected $css = array();
@@ -89,12 +89,12 @@ class Template {
      * @param   string  $content
      * @return  void
      */
-    public function add_metadata($name, $content)
+    public function add_meta($name, $content)
     {
         $name = htmlspecialchars(strip_tags($name));
         $content = htmlspecialchars(strip_tags($content));
 
-        $this->metadata[$name] = $content;
+        $this->meta[$name] = $content;
     }
 
     /**
@@ -142,29 +142,30 @@ class Template {
         }
 
         // Title
-        if ($this->title_desc)
-        {
-            $title = $this->title . $this->title_separator . $this->brand_name . $this->title_separator . $this->title_desc;
-        }
-        else
-        {
+        if($this->title){
             $title = $this->title . $this->title_separator . $this->brand_name;
+        }else{
+            $title = $this->brand_name;
+        }
+        // Title description
+        if ($this->title_desc){
+            $title .=  $this->title_separator . $this->title_desc;
         }
 
         // Metadata
-        $metadata = array();
-        foreach ($this->metadata as $name => $content)
+        $meta = array();
+        foreach ($this->meta as $name => $content)
         {
             if (strpos($name, 'og:') === 0)
             {
-                $metadata[] = "<meta property=\"" . $name . "\" content=\"" . $content . "\">\r\n\t";
+                $meta[] = "<meta property=\"" . $name . "\" content=\"" . $content . "\">\r\n\t";
             }
             else
             {
-                $metadata[] = "<meta name=\"" . $name . "\" content=\"" . $content . "\">\r\n\t";
+                $meta[] = "<meta name=\"" . $name . "\" content=\"" . $content . "\">\r\n\t";
             }
         }
-        $metadata = implode('', $metadata);
+        $meta = implode('', $meta);
 
         // Javascript
         $js = array();
@@ -194,7 +195,7 @@ class Template {
 
         return $this->_ci->load->view('themes/'.$this->theme, array(
             'title' => $title,
-            'metadata' => $metadata,
+            'meta' => $meta,
             'js' => $js,
             'css' => $css,
             'output' => $output,
